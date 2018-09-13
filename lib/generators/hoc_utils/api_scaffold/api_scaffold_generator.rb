@@ -102,7 +102,7 @@ ACTS
       end
 
       def salute
-        msg <<~MSG
+        msg = <<~MSG
           Generation complete.
           Next step is to customize the generated code.
           * Open 'spec/swagger_helper.rb' and change the definitions #{singular_table_name}_input and #{singular_table_name}.
