@@ -1,0 +1,13 @@
+Description:
+    This generator can scaffold a model, api controller, admin controller and stubs for api specification in swagger format
+
+Example:
+    rails generate hoc_utils:api_scaffold NAME field[:type][:index] field[:type][:index] --api_version=v2
+
+    This will create:
+        A model: /app/models/name.rb
+        A migration for model
+        A controller: /app/controllers/api/v2/names_controller.rb
+        Routes for api_controller
+        A administration controller: /app/admin/names_admin.rb
+        Swagger documentation stubs: /spec/integration/names_spec.rb

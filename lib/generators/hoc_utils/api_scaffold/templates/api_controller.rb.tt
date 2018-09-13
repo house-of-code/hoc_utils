@@ -1,0 +1,52 @@
+class Api::<%= api_version.upcase %>::<%= plural_table_name.camelize %>Controller < Api::<%= api_version.upcase %>::ApiController
+
+  before_action :set_<%= singular_table_name %>, only: [:show, :update, :destroy]
+
+  # GET /api/<%= api_version %><%= route_url %>
+  def index
+    @<%= plural_table_name %> = <%= class_name %>.all
+    render_result({ <%= plural_table_name %>: @<%= plural_table_name %>.as_api_response(:basic) })
+  end
+
+  # GET /api/<%= api_version %><%= route_url %>/1
+  def show
+    render_result(@<%= singular_table_name %>.as_api_response(:basic))
+  end
+
+  # POST /api/<%= api_version %><%= route_url %>
+  def create
+    @<%= "#{singular_table_name} = #{class_name}.new(#{singular_table_name}_params)" %>
+
+    if @<%= singular_table_name %>
+      render_result(@<%= singular_table_name %>.as_api_response(:basic), :created)
+    else
+      render_error(@<%= singular_table_name %>.errors.full_messages.first, :unprocessable_entity)
+    end
+  end
+
+  # PATCH/PUT /api/<%= api_version %><%= route_url %>/1
+  def update
+    if @<%= singular_table_name %>.update(<%= singular_table_name %>_params)
+      render_result(@<%= singular_table_name %>.as_api_response(:basic))
+    else
+      render_error(@<%= singular_table_name %>.errors.full_messages.first, :unprocessable_entity)
+    end
+  end
+
+  # DELETE /api/<%= api_version %><%= route_url %>/1
+  def destroy
+    @<%= singular_table_name %>.destroy
+  end
+
+  private
+
+  # Use callbacks to share common setup or constraints between actions.
+  def set_<%= singular_table_name %>
+    @<%= singular_table_name %> = <%= class_name %>.find(params[:id])
+  end
+
+  # Only allow a trusted parameter "white list" through.
+  def <%= "#{singular_table_name}_params" %>
+    params.require(:<%= singular_table_name %>).permit(<%= attributes_names.map { |name| ":#{name}" }.join(', ') %>)
+  end
+end
