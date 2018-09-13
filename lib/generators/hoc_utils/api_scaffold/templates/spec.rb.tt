@@ -19,7 +19,7 @@ describe 'House of Code API' do
     end
 
     post 'creates a profile' do
-      tags '<%= singular_table_name.camelize %>'
+      tags '<%= plural_table_name.camelize %>'
       description 'Creates <%= singular_table_name %> with given input'
       produces 'application/json'
       consumes 'application/json'
@@ -40,7 +40,7 @@ describe 'House of Code API' do
 
   path '/api/<%= "#{api_version}/#{plural_table_name}" %>/{id}' do
     get 'Get <%= singular_table_name %>' do
-      tags '<%= plural_table_name %>'
+      tags '<%= plural_table_name.camelize %>'
       description 'Gets <%= singular_table_name %> with :id'
       produces 'application/json'
       consumes 'application/json'
@@ -57,7 +57,7 @@ describe 'House of Code API' do
     end
 
     put 'Update <%= singular_table_name %>' do
-      tags '<%= plural_table_name %>'
+      tags '<%= plural_table_name.camelize %>'
       description 'Updates <%= singular_table_name %> with :id'
       produces 'application/json'
       consumes 'application/json'
@@ -74,7 +74,7 @@ describe 'House of Code API' do
     end
 
     delete 'Delete <%= singular_table_name %> with :id' do
-      tags '<%= plural_table_name %>'
+      tags '<%= plural_table_name.camelize %>'
       description 'Deletes <%= singular_table_name %> with :id'
       produces 'application/json'
       consumes 'application/json'

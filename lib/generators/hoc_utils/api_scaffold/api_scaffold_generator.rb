@@ -92,8 +92,29 @@ ACTS
       end
 
       def migrate
+        say "Migrating...", :bold
         rails_command 'db:migrate'
       end
+
+      def update_swagger
+        say "Updating swagger documentation...", :bold
+        rails_command 'rswag:specs:swaggerize'
+      end
+
+      def salute
+        msg <<~MSG
+          Generation complete.
+          Next step is to customize the generated code.
+          * Open 'spec/swagger_helper.rb' and change the definitions #{singular_table_name}_input and #{singular_table_name}.
+          * Run 'rails rswag:specs:swaggerize' to update swagger.
+          * Make sure any referenced models are updated with eg. has_many :#{plural_table_name}
+          * Customize the table and form definition in 'app/admin/#{plural_table_name}_admin.rb'
+          * #beAwesome
+
+        MSG
+        say msg, :green, :bold
+      end
+
     end
   end
 end
