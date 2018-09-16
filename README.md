@@ -1,6 +1,6 @@
 # HocUtils
-
 This is a collection of utilities for a HoC API application
+
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -17,10 +17,11 @@ Or install it yourself as:
 
     $ gem install hoc_utils
 
+## TODO
+* Routes for nested resources
+* Generate client code
+* DSL for specifying models and layout of admin pages
 
-## Contributing
-
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/hoc_utils.
 
 ## License
 

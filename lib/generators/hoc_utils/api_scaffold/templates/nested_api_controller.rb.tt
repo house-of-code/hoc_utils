@@ -1,10 +1,10 @@
 class Api::<%= api_version.upcase %>::<%= plural_table_name.camelize %>Controller < Api::<%= api_version.upcase %>::ApiController
-
+  before_action :set_<%= singular_parent_name %>
   before_action :set_<%= singular_table_name %>, only: [:show, :update, :destroy]
 
   # GET /api/<%= api_version %><%= route_url %>
   def index
-    render_collection(<%= class_name %>.all, :<%= plural_table_name %>)
+    render_collection(@<%= singular_parent_name %>.<%= plural_table_name %>.all, :<%= plural_table_name %>)
   end
 
   # GET /api/<%= api_version %><%= route_url %>/1
@@ -14,7 +14,7 @@ class Api::<%= api_version.upcase %>::<%= plural_table_name.camelize %>Controlle
 
   # POST /api/<%= api_version %><%= route_url %>
   def create
-    @<%= "#{singular_table_name} = #{class_name}.new(#{singular_table_name}_params)" %>
+    @<%= "#{singular_table_name} = #{singular_parent_name}.#{plural_table_name}.new(#{singular_table_name}_params)" %>
 
     if @<%= singular_table_name %>
       render_result(@<%= singular_table_name %>.as_api_response(:basic), :created)
@@ -40,8 +40,11 @@ class Api::<%= api_version.upcase %>::<%= plural_table_name.camelize %>Controlle
   private
 
   # Use callbacks to share common setup or constraints between actions.
+  def set_<%= singular_parent_name %>
+    @<%= singular_parent_name %> = <%= parent_class_name %>.find(params[:id])
+  end
   def set_<%= singular_table_name %>
-    @<%= singular_table_name %> = <%= class_name %>.find(params[:id])
+    @<%= singular_table_name %> = @<%= singular_parent_name %>.<%= plural_table_name %>.find(params[:id])
   end
 
   # Only allow a trusted parameter "white list" through.
