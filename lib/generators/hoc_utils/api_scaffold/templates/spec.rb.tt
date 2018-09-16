@@ -10,7 +10,7 @@ describe 'House of Code API' do
       parameter name: :all, in: :query, type: :boolean
       parameter name: :page, in: :query, type: :integer
       parameter name: :Authorization, in: :header, required: true, type: :string
-      <%= "parameter name: :#{singular_parent_name}_id, in: :path, required:true, type: integer" if is_nested? %>
+      <%= "parameter name: :#{singular_parent_name}_id, in: :path, required:true, type: :integer" if is_nested? %>
       response '200', '<%= plural_table_name.camelize %>' do
         schema '$ref' => '#/definitions/<%= plural_table_name %>'
         run_test!
@@ -26,7 +26,7 @@ describe 'House of Code API' do
       description 'Creates <%= singular_table_name %> with given input'
       produces 'application/json'
       consumes 'application/json'
-      <%= "parameter name: :#{singular_parent_name}_id, in: :path, required:true, type: integer" if is_nested? %>
+      <%= "parameter name: :#{singular_parent_name}_id, in: :path, required:true, type: :integer" if is_nested? %>
       parameter name: :<%= singular_table_name %>, in: :body, schema: {
         '$ref' => '#/definitions/<%= singular_table_name %>_input'
       }
@@ -47,7 +47,7 @@ describe 'House of Code API' do
       description 'Gets <%= singular_table_name %> with :id'
       produces 'application/json'
       consumes 'application/json'
-      <%= "parameter name: :#{singular_parent_name}_id, in: :path, required:true, type: integer" if is_nested? %>
+      <%= "parameter name: :#{singular_parent_name}_id, in: :path, required:true, type: :integer" if is_nested? %>
       parameter name: :id, in: :path, type: :integer, required: true
       parameter name: :Authorization, in: :header, required: true, type: :string
       response '200', '<%= singular_table_name.camelize %>' do
@@ -65,7 +65,7 @@ describe 'House of Code API' do
       description 'Updates <%= singular_table_name %> with :id'
       produces 'application/json'
       consumes 'application/json'
-      <%= "parameter name: :#{singular_parent_name}_id, in: :path, required:true, type: integer" if is_nested? %>
+      <%= "parameter name: :#{singular_parent_name}_id, in: :path, required:true, type: :integer" if is_nested? %>
       parameter name: :id, in: :path, type: :integer, required: true
       parameter name: :Authorization, in: :header, required: true, type: :string
       response '200', '<%= singular_table_name.camelize %>' do
@@ -83,7 +83,7 @@ describe 'House of Code API' do
       description 'Deletes <%= singular_table_name %> with :id'
       produces 'application/json'
       consumes 'application/json'
-      <%= "parameter name: :#{singular_parent_name}_id, in: :path, required:true, type: integer" if is_nested? %>
+      <%= "parameter name: :#{singular_parent_name}_id, in: :path, required:true, type: :integer" if is_nested? %>
       parameter name: :Authorization, in: :header, required: true, type: :string
       parameter name: :id, in: :path, type: :integer, required: true
       response '200', '<%= singular_table_name.camelize %> deleted' do
