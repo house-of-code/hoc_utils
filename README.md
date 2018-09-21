@@ -65,7 +65,7 @@ en:
 class SessionsController < ApplicationController
     def login
         # Parameter check
-        unless params.include?(:username, :password)
+        unless params.include?([:username, :password])
         raise HocUtils::ApiException::MissingParameter(parameter: "username and password") unless user.authenticate(password)
     end
 end
