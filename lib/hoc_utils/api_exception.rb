@@ -14,6 +14,7 @@ module HocUtils
         I18n.reload!
 
         hash = ApiException.t(name)
+        puts hash
         if hash.is_a? Hash
             ApiException.new hash
         else
