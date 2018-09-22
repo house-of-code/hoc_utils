@@ -45,11 +45,16 @@ module HocUtils
             return nil
         end
 
+        http_code = nil
+        code = nil
 
+
+        http_code = args[:http_code] if args.has_key?(:http_code)
+        code = args[:code] if args.has_key?(:code)
 
         message = I18n.t("#{l18name}.message", args)
-        http_code = I18n.t("#{l18name}.http_code")
-        code = I18n.t("#{l18name}.code")
+        http_code = I18n.t("#{l18name}.http_code") if http_code.nil?
+        code = I18n.t("#{l18name}.code") if code.nil?
 
         return {
             message: message,
